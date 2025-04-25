@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body{
+    background-color: #F3F2F7;
+    font-family: "Geist";
+}
+
+
+.heading-text{
+    @apply font-semibold text-[20px]
+}
+
+.nrml-text{
+    @apply text-[#1A1919] text-[13px]
+}
+
+.small-text{
+    @apply text-[#1A1919] font-normal text-[12px]
+}
+
+.sq-off-btn{
+    @apply flex items-center gap-2 border border-custom-blue rounded-md font-semibold px-2 py-[5px] text-custom-blue whitespace-nowrap text-[12px] bg-black bg-opacity-5
+}
+
+.custom-input{
+    @apply border border-gray-300 rounded px-3 py-2 w-full bg-transparent outline-none
+}
+
+.btn{
+    @apply text-white bg-custom-blue px-2 py-2 rounded-md
+}
