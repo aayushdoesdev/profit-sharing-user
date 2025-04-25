@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import Popup from "@/components/Popup.vue";
-import Calender from '@/views/calender/Main.vue';
+import Calender from "@/views/calender/Main.vue";
+import { RouterLink } from "vue-router";
 
 const isOpen = ref(null); // null means no open row
 
@@ -73,7 +74,7 @@ const positions = ref([
       <div class="bg-white p-4 space-y-4 rounded-md">
         <div class="flex items-center justify-between">
           <p class="nrml-text">Overall Profit</p>
-          <img src="/svg/dash1.svg" class="h-[30px] w-[30px]"></img>
+          <img src="/svg/dash1.svg" class="h-[30px] w-[30px]" />
         </div>
         <hr class="border border-dashed" />
         <div class="flex items-center justify-between">
@@ -90,7 +91,7 @@ const positions = ref([
       <div class="bg-white p-4 space-y-4 rounded-md">
         <div class="flex items-center justify-between">
           <p class="nrml-text">Avg profit</p>
-          <img src="/svg/dash2.svg" class="h-[30px] w-[30px]"></img>
+          <img src="/svg/dash2.svg" class="h-[30px] w-[30px]" />
         </div>
         <hr class="border border-dashed" />
         <div class="flex items-center justify-between">
@@ -103,11 +104,11 @@ const positions = ref([
           </p>
         </div>
       </div>
-      
+
       <div class="bg-white p-4 space-y-4 rounded-md">
         <div class="flex items-center justify-between">
           <p class="nrml-text">Total Trades</p>
-          <img src="/svg/dash4.svg" class="h-[30px] w-[30px]"></img>
+          <img src="/svg/dash4.svg" class="h-[30px] w-[30px]" />
         </div>
         <hr class="border border-dashed" />
         <div class="flex items-center justify-between">
@@ -122,32 +123,48 @@ const positions = ref([
       <div class="bg-white p-4 space-y-4 rounded-md col-span-1">
         <div class="flex items-center justify-between">
           <p class="nrml-text">Brokers</p>
-          <img src="/svg/dash5.svg" class="h-[30px] w-[30px]"></img>
+          <img src="/svg/dash5.svg" class="h-[30px] w-[30px]" />
         </div>
         <hr class="border border-dashed" />
         <div class="flex items-center justify-between">
           <p class="heading-text">46589</p>
-          <button @click="showSidebar = true" class="text-custom-blue flex items-center font-bold underline underline-offset-4 text-[14px]">
+          <button
+            @click="showSidebar = true"
+            class="text-custom-blue flex items-center font-bold underline underline-offset-4 text-[14px]"
+          >
             <p>+ Connect</p>
           </button>
         </div>
       </div>
 
-      <div class="bg-gradient-to-r from-white overflow-hidden via-white to-custom-blue p-4 rounded-md col-span-2 relative">
-        <img src="/svg/abstract.svg" alt="" class="absolute top-0 right-0 w-56 ">
-        <div class="flex flex-col ">
-          <h2 class="text-custom-black font-[800] text-[16px] max-w-xs">Invite your friends to join and enjoy rewards together</h2>
-          <button class=" mt-4 btn max-w-36">
-            Invite Now
-          </button>
+      <div
+        class="bg-gradient-to-r from-white overflow-hidden via-white to-custom-blue p-4 rounded-md col-span-2 relative"
+      >
+        <img
+          src="/svg/abstract.svg"
+          alt=""
+          class="absolute top-0 right-0 w-56"
+        />
+        <div class="flex flex-col text-custom-black text-[15px]">
+          <div class="w-[70%]">
+            <p class="font-semibold">
+              Invite your friends to join and enjoy rewards together
+            </p>
+            <p>Your referral code is: 749fh93fm</p>
+          </div>
+          <router-link to="/refer"
+            class="flex items-center gap-1 w-fit underline underline-offset-2"
+          >
+            <p>
+              Know more
+              <span><i class="pi pi-arrow-up-right text-[12px]"></i></span>
+            </p>
+          </router-link>
         </div>
       </div>
-
-      
     </div>
     <div class="px-4">
-      <Calender/>
-
+      <Calender />
     </div>
 
     <transition name="slide">
@@ -157,9 +174,7 @@ const positions = ref([
       >
         <!-- Header -->
         <div class="flex justify-between items-center mb-4">
-          <h2 class="text-xl font-bold">
-            Add Broker
-          </h2>
+          <h2 class="text-xl font-bold">Add Broker</h2>
           <div class="">
             <button
               @click="showSidebar = false"
@@ -167,41 +182,35 @@ const positions = ref([
             >
               Cancel
             </button>
-            
           </div>
         </div>
 
-        
-        
-
         <!-- Form -->
         <div class="nrml-text space-y-4 mt-4">
-         
-            <div>
-              <label class="opacity-70">Select Broker</label>
-              <input type="text" class="custom-input" />
-            </div>
-            <div>
-              <label class="opacity-70">Broker User ID</label>
-              <input type="text" class="custom-input" />
-            </div>
-            <div>
-              <label class="opacity-70">Broker Password</label>
-              <input type="text" class="custom-input" />
-            </div>
-            <div>
-              <label class="opacity-70">Broker QR Key</label>
-              <input type="password" class="custom-input" />
-            </div>
-            <div>
-              <label class="opacity-70">Broker API</label>
-              <input type="text" class="custom-input" />
-            </div>
-            <div>
-              <label class="opacity-70">Broker API Secret</label>
-              <input type="text" class="custom-input" />
-            </div>
-          
+          <div>
+            <label class="opacity-70">Select Broker</label>
+            <input type="text" class="custom-input" />
+          </div>
+          <div>
+            <label class="opacity-70">Broker User ID</label>
+            <input type="text" class="custom-input" />
+          </div>
+          <div>
+            <label class="opacity-70">Broker Password</label>
+            <input type="text" class="custom-input" />
+          </div>
+          <div>
+            <label class="opacity-70">Broker QR Key</label>
+            <input type="password" class="custom-input" />
+          </div>
+          <div>
+            <label class="opacity-70">Broker API</label>
+            <input type="text" class="custom-input" />
+          </div>
+          <div>
+            <label class="opacity-70">Broker API Secret</label>
+            <input type="text" class="custom-input" />
+          </div>
         </div>
       </div>
     </transition>

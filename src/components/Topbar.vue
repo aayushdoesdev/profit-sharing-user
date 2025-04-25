@@ -50,6 +50,10 @@ const routes = [
     name: "Profile",
     path: "/profile",
   },
+  {
+    name: "Referrals",
+    path: "/refer",
+  },
 ];
 
 const titleName = computed(() => {
@@ -59,7 +63,7 @@ const titleName = computed(() => {
 </script>
 
 <template>
-  <div class="font-geist py-2 px-4 flex items-center justify-end">
+  <div class="font-geist py-2 px-4 flex items-center justify-between">
     <!-- <div class="flex items-center gap-4 xl:hidden">
       <button
         @click="showSidebar = true"
@@ -72,9 +76,6 @@ const titleName = computed(() => {
 
     <div class="hidden xl:block">
       <h2 class="heading-text">{{ titleName }}</h2>
-      <p v-if="route.path === '/calender'" class="nrml-text opacity-60">
-        Home > User management > Calender
-      </p>
     </div>
 
     <div class="flex items-center gap-4">
