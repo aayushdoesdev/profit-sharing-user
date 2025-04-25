@@ -29,16 +29,16 @@ function togglePasswordVisibility(field) {
 
 // Login form data and validation
 const loginFormData = reactive({
-  "brokerId": '',
-  "password": '',
+  "broker_userid": '',
+  "broker_password": '',
 });
 
 const loginFormRules = {
-  brokerId: {
+  broker_userid: {
     required,
     minLength: minLength(6),
   },
-  password: {
+  broker_password: {
     required
   },
 };
@@ -53,7 +53,8 @@ const login = async () => {
       const response = await makeRequest("login", "POST", loginFormData);
 
       if (response) {
-        localStorage.setItem('token', response.data.access_token);
+        console.log(response);
+        localStorage.setItem('token', `Bearer ${response.token}`);
         
         // Redirect to dashboard
         router.push({ name: 'home' });
@@ -91,14 +92,14 @@ const login = async () => {
           <p>Broker ID</p>
           <input
             type="text"
-            id="brokerId"
-            name="brokerId"
-            v-model.trim="loginFormData.brokerId"
+            id="broker_userid"
+            name="broker_userid"
+            v-model.trim="loginFormData.broker_userid"
             placeholder="Enter your Broker ID"
-            :class="{ 'border-red-500': validateLogin.brokerId.$error }"
+            :class="{ 'border-red-500': validateLogin.broker_userid.$error }"
             class="w-full border border-black border-opacity-40 py-2 rounded-md outline-none px-4 bg-transparent"
           />
-          <div v-if="validateLogin.brokerId.$error" class="text-red-500 text-sm">
+          <div v-if="validateLogin.broker_userid.$error" class="text-red-500 text-sm">
             Please enter a valid Broker ID
           </div>
         </div>
@@ -109,16 +110,16 @@ const login = async () => {
             :type="passwordFields.showLoginPassword ? 'text' : 'password'"
             id="password"
             name="password"
-            v-model.trim="loginFormData.password"
+            v-model.trim="loginFormData.broker_password"
             placeholder="Enter your password"
-            :class="{ 'border-red-500': validateLogin.password.$error }"
+            :class="{ 'border-red-500': validateLogin.broker_password.$error }"
             class="w-full border border-black border-opacity-40 py-2 rounded-md outline-none px-4 bg-transparent"
           />
           <span @click="togglePasswordVisibility('showLoginPassword')" class="absolute right-4 top-9 cursor-pointer">
             <EyeOffIcon v-if="passwordFields.showLoginPassword" class="w-5 h-5" />
             <EyeIcon v-else class="w-5 h-5" />
           </span>
-          <div v-if="validateLogin.password.$error" class="text-red-500 text-sm">
+          <div v-if="validateLogin.broker_password.$error" class="text-red-500 text-sm">
             Password is required
           </div>
         </div>
