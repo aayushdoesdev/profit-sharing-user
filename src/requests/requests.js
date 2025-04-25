@@ -1,6 +1,6 @@
 import { ref, toRefs,reactive , computed} from 'vue';
 import  router  from "@/router/index";
-import { ManageApiResponse } from "./manageResponse";
+// import { ManageApiResponse } from "./manageResponse";
 import config from '../../matrixcnfg.js';
 
 
@@ -76,89 +76,15 @@ if(config.env=="production"){
 
 
 const endpoints = ref({
-  login: '/auth/login/email',
+  login: '/admin/user/login',
   logout: '/admin/logout',
   register: '/admin/user/signup',
   verifyOTP: '/auth/forgot-password',
   sendForgotOTP: '/auth/send-email/forgot-password/otp',
   forgot: '/auth/forgot-password',
   profile: '/admin/profile',
-  notifications: '/admin/notifications',
-  users: '/admin/users',
-  webhookOrders: '/admin/webhook/orders',
-  matrixOrders: '/admin/matrix/orders',
-  matrixErrors: '/admin/matrix_error',
-  webhookErrors: '/admin/webhook_errors',
-  matrixStrategyJoiner: '/admin/matrix/strategy-joiner',
-  webhookStrategyJoiner: '/admin/webhook/joiners',
-  webhookPaperPositions: '/admin/webhook/paper-positions',
-  strategyPaperPosition: '/admin/webhook_strategy_paper_positions',
-
-  brokers: '/admin/brokers',
-  strategies: '/admin/matrix/strategies',
-  webhookStrategies: '/admin/webhook/strategies',
-  myStrategies:'/admin/webhook_strategy',
-  strategyType:'/admin/matrix/strategytypes',
-  paperPosition:'/admin/matrix/matrix_paper_positions',
-  matrixPaperPosition:'/admin/matrix_strategy_paper_positions',
-  matrixDemoPaperPosition:'/admin/demo_paper_positions',
-  matrixPaperOrder:'/admin/matrix_paper_orders',
-  plans:'/admin/products',
-  productCategories:'/admin/products/categories',
-  matrixPlanStrategy:'/admin/products/strategies',
-  roles: '/admin/roles',
-  manageOrders: '/admin/order_id',
-  manageStages: '/admin/order_stage',
-  currentOrders: '/admin/matrix/orders',
-  joiners: '/admin/joiners',
-  positions:'/admin/matrix/positions',
-  positionCSVData: '/admin/matrix/get-positions-data',
-  invoices: '/admin/invoice',
-  invoiceItems: '/admin/invoice_item',
-  generalOffers: '/admin/offers/general',
-  specialOffers: '/admin/offers/specific',
-  generateToken:'/admin/brokers/generate-token',
-  videos:'/admin/videos',
-  errors: '/admin/matrix_error',
-  socials: '/admin/social/api',
-  matrixAlerts: '/admin/matrix/alerts',
-  webhookAlerts: '/admin/webhook/alerts',
-  webhookPositions: '/admin/webhook/positions',
-  admin:'/admin',
-  salesUser: '/admin/sales/users',
-  userDashboard:'/admin/user/dashboard',
-  strtgposSqOff: '/admin/matrix/strategy/position/sqoff',
-  paymentQr:'/admin/payment/qrcode',
-  userAddress: '/admin/user_address',
-  getOfferByPromo:'/admin/get_offer_by_promo',
-  promoCode:'/admin/get-offer',
-  subscriptions: '/admin/users/subscriptions',
-  screeners: '/admin/screener/strategy',
-
-  searchinstruments: '/admin/searchinstruments',
-  userBrokers: '/admin/users/user-brokers',
-
-  manualGroup: '/admin/groups',
-  groupJoiners: '/admin/groups/joiners',
-  groupAlerts: '/admin/groups/alert',
-  groupOrders: '/admin/groups/orders',
-  groupPlaceOrder: '/admin/groups/group-place-order',
-  groupModifyOrder: '/admin/groups/orders/modify',
-  groupCancelOrder: '/admin/groups/orders/cancel',
-  groupMaster: '/admin/groups/master',
-  manualPositions: '/admin/groups/positions',
-  manualPaperPositions: '/admin/groups/paper-positions',
-
-  signalJoiner: '/admin/signal-joiner',
-  signalPositions: '/admin/signal-positions',
-  signalOrders: '/admin/signal-orders',
-  signal: '/admin/signals',
-
-  indicators: '/admin/indicators',
-  uploadImage: '/admin/upload-image',
-  matrixSummary: '/admin/matrix/dashboard/summary',
-  webhookSummary: '/admin/webhook/dashboard/summary',
-  manualSummary: '/admin/groups/dashboard/summary',
+  positions : '/admin/positions/user'
+  
 })
 
 const getApiUrl = (endpoint) => {
@@ -212,7 +138,7 @@ const makeApiRequest = async (config,wait,endpoint,id) => {
       return response.data;
     } 
     else {
-      ManageApiResponse(response, endpoint,config.method);
+      //ManageApiResponse(response, endpoint,config.method);
       return response.data
     }
   } catch (error) {
@@ -236,7 +162,7 @@ const makeApiRequest = async (config,wait,endpoint,id) => {
     state[endpoint].loading = false;
 
     if(endpoint !== 'login' && endpoint !== 'register' && endpoint !== 'verifyOTP' && endpoint !== 'sendForgotOTP' && endpoint !== 'forgot'){
-      ManageApiResponse(error.response, endpoint,config.method);
+      //ManageApiResponse(error.response, endpoint,config.method);
     }
 
     return "";
