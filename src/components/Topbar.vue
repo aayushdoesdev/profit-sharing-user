@@ -1,10 +1,25 @@
 <script setup>
+import { useProfileStore } from "@/stores/profile";
+import { storeToRefs } from "pinia";
 import { ref, computed } from "vue";
 import { useRoute, RouterLink, useRouter } from "vue-router";
+import {logout} from "@/requests/requests"
 
 const route = useRoute();
 const router = useRouter();
 const showSidebar = ref(false);
+const profileStore = useProfileStore();
+const { profile } = storeToRefs(profileStore);
+
+const isMenuopen = ref(false)
+
+const toggleMenu = () => {
+  isMenuopen.value = !isMenuopen.value
+}
+
+const handleLogout = async () => {
+  await logout();
+};
 
 const routes = [
   {
@@ -74,15 +89,26 @@ const titleName = computed(() => {
       </router-link>
     </div> -->
 
-    <div class="hidden xl:block">
+    <!-- <div class="hidden xl:block">
       <h2 class="heading-text">{{ titleName }}</h2>
-    </div>
+    </div> -->
+    <router-link to="/" class="">
+      <img src="/svg/logo.svg" alt="" class="w-[80%]">
+    </router-link>
 
     <div class="flex items-center gap-4">
       <div class="h-[40px] w-[40px] bg-slate-500"></div>
-      <router-link to="/profile">
-        <div class="h-[40px] w-[40px] bg-slate-500 rounded-full"></div>
-      </router-link>
+      <div class="flex items-center gap-4">
+      
+      <div @click="toggleMenu" class="cursor-pointer">
+        <img class="h-[40px] w-[40px] rounded-full" :src="profile?.profile_pic_url" alt=""> 
+      </div>
+
+      <div v-if="isMenuopen" class="w-[200px] bg-white shadow-md absolute top-[50px] right-5 rounded-md z-30 flex flex-col gap-3">
+        <router-link to="/profile" class="py-2 px-4 hover:bg-slate-300 w-full rounded-md transition-all">Profile</router-link>
+        <button @click="handleLogout" class="py-2 px-4 hover:bg-slate-300 w-full text-left rounded-md transition-all">Logout</button>
+      </div>
+    </div>
     </div>
   </div>
 

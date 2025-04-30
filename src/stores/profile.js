@@ -13,7 +13,7 @@ export const useProfileStore = defineStore('profile' , () => {
             const response = await makeRequest(endpoint , 'GET' );
             if(response.data)
             {
-                profile.value = response.data.profile;
+                profile.value = response.data;
             }
         } catch (error) {
             console.error("Error fetching profile:", error);
@@ -21,10 +21,30 @@ export const useProfileStore = defineStore('profile' , () => {
 
     }
 
+    const updateProfile = async(data) => {
+        try {
+            const response = await makeRequest(endpoint, "PUT", data)
+            
+        } catch (error) {
+            console.log("This is from profile", error)
+        }
+    }
+
+    const changePassword = async(data) => {
+        try {
+            const response = await makeRequest(endpoint, "PUT", data)
+            
+        } catch (error) {
+            console.log("This is from profile", error)
+        }
+    }
+
     getProfile();
     return {
         profile,
-        getProfile
+        getProfile,
+        updateProfile,
+        changePassword
     }
 
 })

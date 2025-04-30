@@ -1,5 +1,10 @@
 <script setup>
 import { ref } from "vue";
+import { useProfileStore } from "@/stores/profile";
+import { storeToRefs } from "pinia";
+
+const profileStore = useProfileStore()
+const {profile} = storeToRefs(profileStore)
 
 const steps = [
   {
@@ -61,25 +66,38 @@ const payouts = ref([
     adminShare: 175,
   },
 ]);
+
+const copied = ref(false);
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      copied.value = true;
+      setTimeout(() => copied.value = false, 2000); // Hide after 2s
+    })
+    .catch(() => {
+      copied.value = false;
+    });
+}
 </script>
 
 <template>
   <main>
-    <div class="grid grid-cols-5 gap-4 mt-4">
+    <div class="grid md:grid-cols-5 gap-4 mt-4">
       <!-- Left Section -->
       <section
-        class="col-span-3 bg-custom-blue py-6 px-8 rounded-r-md text-white"
+        class="md:col-span-3 bg-custom-blue py-6 px-8 rounded-r-md text-white"
       >
         <p class="heading-text mb-4">How it works</p>
 
-        <div class="grid grid-cols-3 gap-8 text-sm">
+        <div class="grid md:grid-cols-3 gap-8 text-sm">
           <div v-for="(step, index) in steps" :key="index" class="space-y-2">
             <div class="flex items-center gap-4">
               <span
                 class="bg-white text-black px-3 py-1 rounded-full font-bold"
                 >{{ index + 1 }}</span
               >
-              <hr class="border-dashed border-white w-full" />
+              <hr class="border-dashed border-white w-full hidden md:flex" />
             </div>
             <div>
               <p class="font-semibold text-white text-base">{{ step.title }}</p>
@@ -90,7 +108,7 @@ const payouts = ref([
       </section>
 
       <!-- Right Section -->
-      <section class="col-span-2 bg-white p-6 rounded-l-md space-y-6">
+      <section class="md:col-span-2 bg-white p-6 rounded-l-md space-y-6">
         <div
           class="border border-custom-blue bg-custom-blue bg-opacity-20 rounded-md px-4 py-3 text-custom-blue text-sm"
         >
@@ -107,10 +125,12 @@ const payouts = ref([
           <p class="heading-text">Invite Link</p>
           <div
             class="flex items-center justify-between px-4 py-2 border border-black border-opacity-30 rounded-md text-sm"
+            
           >
-            <span>https://yourinvite.link/example</span>
-            <button class="pi pi-clipboard"></button>
+            <span>{{ profile.refere_by }}</span>
+            <button @click="copyToClipboard(profile.refere_by)" class="pi pi-clipboard"></button>
           </div>
+          <p v-if="copied" class="text-green-600 text-xs mt-1">Copied!</p>
         </div>
       </section>
     </div>

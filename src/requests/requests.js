@@ -82,8 +82,8 @@ const endpoints = ref({
   verifyOTP: '/auth/forgot-password',
   sendForgotOTP: '/auth/send-email/forgot-password/otp',
   forgot: '/auth/forgot-password',
-  profile: '/admin/profile',
-  positions : '/admin/positions/user'
+  profile: '/admin/users/profile',
+  positions : '/admin/positions'
   
 })
 
