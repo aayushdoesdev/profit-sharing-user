@@ -66,6 +66,97 @@ const positions = ref([
     script: "SPDTRH823HRF823",
   },
 ]);
+
+
+const brokerData = ref({
+  broker_userid: "",
+  broker_password: "",
+  broker_qr_key: "",
+  broker_api: "",
+  broker_api_secret: "",
+  broker_name: "",
+  token_status: "valid",
+  broker_token: "",
+  broker_token_date: "",
+  is_active: true,
+  is_autologin: false,
+  is_disabled: false,
+  is_editable: true,
+  message: ""
+});
+
+const addEditBroker = async () => {
+  
+  try {
+    await userStore.addEditUser({broker: brokerData.value });
+    showSidebar.value = false;
+
+    brokerData.value = {
+      broker_userid: "",
+      broker_password: "",
+      broker_qr_key: "",
+      broker_api: "",
+      broker_api_secret: "",
+      broker_name: "",
+      token_status: "valid",
+      broker_token: "",
+      broker_token_date: "",
+      is_active: true,
+      is_autologin: false,
+      is_disabled: false,
+      is_editable: true,
+      message: ""
+    };
+  } catch (error) {
+    conosle.log(error)
+  }
+}
+
+const openEditModal = async (user) => {
+  showSidebar.value = true;
+  idtoEdit.value = user.id;
+
+  const brokerDetails = await brokerStore.getBrokerByUserId(user.id);
+
+  brokerData.value = {
+    broker_userid: brokerDetails.broker_userid,
+    broker_password: brokerDetails.broker_password,
+    broker_qr_key: brokerDetails.broker_qr_key,
+    broker_api: brokerDetails.broker_api,
+    broker_api_secret: brokerDetails.broker_api_secret,
+    broker_name: brokerDetails.broker_name,
+    token_status: brokerDetails.token_status,
+    broker_token: brokerDetails.broker_token,
+    broker_token_date: brokerDetails.broker_token_date,
+    is_active: brokerDetails.is_active,
+    is_autologin: brokerDetails.is_autologin,
+    is_disabled: brokerDetails.is_disabled,
+    is_editable: brokerDetails.is_editable,
+    message: brokerDetails.message
+  };
+  
+}
+
+const closeModal = () => {
+  showSidebar.value = false;
+
+  brokerData.value = {
+    broker_userid: "",
+    broker_password: "",
+    broker_qr_key: "",
+    broker_api: "",
+    broker_api_secret: "",
+    broker_name: "",
+    token_status: "valid",
+    broker_token: "",
+    broker_token_date: "",
+    is_active: true,
+    is_autologin: false,
+    is_disabled: false,
+    is_editable: true,
+    message: ""
+  };
+}
 </script>
 
 <template>
@@ -152,7 +243,8 @@ const positions = ref([
             </p>
             <p>Your referral code is: 749fh93fm</p>
           </div>
-          <router-link to="/refer"
+          <router-link
+            to="/refer"
             class="flex items-center gap-1 w-fit underline underline-offset-2"
           >
             <p>
@@ -170,7 +262,7 @@ const positions = ref([
     <transition name="slide">
       <div
         v-if="showSidebar"
-        class="fixed right-0 top-0 h-full w-[400px] bg-white shadow-lg z-50 p-6"
+        class="fixed right-0 top-0 h-full w-[600px] bg-white shadow-lg z-50 p-6"
       >
         <!-- Header -->
         <div class="flex justify-between items-center mb-4">
@@ -186,30 +278,86 @@ const positions = ref([
         </div>
 
         <!-- Form -->
-        <div class="nrml-text space-y-4 mt-4">
+        <div class="nrml-text grid grid-cols-2 gap-4 mt-4">
           <div>
-            <label class="opacity-70">Select Broker</label>
-            <input type="text" class="custom-input" />
+            <label class="opacity-70">Broker Name</label>
+            <input
+              type="text"
+              v-model="brokerData.broker_name"
+              class="custom-input"
+            />
           </div>
           <div>
             <label class="opacity-70">Broker User ID</label>
-            <input type="text" class="custom-input" />
+            <input
+              type="text"
+              v-model="brokerData.broker_userid"
+              class="custom-input"
+            />
           </div>
           <div>
             <label class="opacity-70">Broker Password</label>
-            <input type="text" class="custom-input" />
+            <input
+              type="text"
+              v-model="brokerData.broker_password"
+              class="custom-input"
+            />
           </div>
           <div>
             <label class="opacity-70">Broker QR Key</label>
-            <input type="password" class="custom-input" />
+            <input
+              type="password"
+              v-model="brokerData.broker_qr_key"
+              class="custom-input"
+            />
           </div>
           <div>
             <label class="opacity-70">Broker API</label>
-            <input type="text" class="custom-input" />
+            <input
+              type="text"
+              v-model="brokerData.broker_api"
+              class="custom-input"
+            />
           </div>
           <div>
             <label class="opacity-70">Broker API Secret</label>
-            <input type="text" class="custom-input" />
+            <input
+              type="text"
+              v-model="brokerData.broker_api_secret"
+              class="custom-input"
+            />
+          </div>
+          <div>
+            <label class="opacity-70">Broker Token</label>
+            <input
+              type="text"
+              v-model="brokerData.broker_token"
+              class="custom-input"
+            />
+          </div>
+          <div>
+            <label class="opacity-70">Token Status</label>
+            <input
+              type="text"
+              v-model="brokerData.token_status"
+              class="custom-input"
+            />
+          </div>
+          <div>
+            <label class="opacity-70">Token Date</label>
+            <input
+              type="date"
+              v-model="brokerData.broker_token_date"
+              class="custom-input"
+            />
+          </div>
+          <div>
+            <label class="opacity-70">Message</label>
+            <input
+              type="text"
+              v-model="brokerData.message"
+              class="custom-input"
+            />
           </div>
         </div>
       </div>
