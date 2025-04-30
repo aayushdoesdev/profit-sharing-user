@@ -7,13 +7,6 @@ import NoSidebarLayout from "@/layout/NoSidebarLayout.vue";
 
 // Pages
 import DashboardView from "@/views/dashboard/Main.vue";
-import UserManagementView from "@/views/userManagement/Main.vue";
-import CalenderView from "@/views/calender/Main.vue";
-import StrategiesView from "@/views/strategies/Main.vue";
-import AlertsView from "@/views/alert/Main.vue";
-import TradeHistoryView from "@/views/tradeHistory/Main.vue";
-import ReportsView from "@/views/reports/Main.vue";
-import ManualOrders from "@/views/manualOrders/Main.vue"
 import ProfileView from "@/views/profile/Main.vue"
 import ReferView from "@/views/refer/Main.vue"
 
@@ -34,36 +27,7 @@ const router = createRouter({
           name: "home",
           component: DashboardView,
         },
-        {
-          path: "/user-management",
-          name: "user-management",
-          component: UserManagementView,
-        },
-        {
-          path: "/alerts",
-          name: "alerts",
-          component: AlertsView,
-        },
-        {
-          path: "/strategies",
-          name: "strategies",
-          component: StrategiesView,
-        },
-        {
-          path: "/reports",
-          name: "reports",
-          component: ReportsView,
-        },
-        {
-          path: "/manual-orders",
-          name: "manual-orders",
-          component: ManualOrders,
-        },
-        {
-          path: "/trade-history",
-          name: "trade-history",
-          component: TradeHistoryView,
-        },
+        
         {
           path: "/refer",
           name: "refer",
@@ -76,11 +40,7 @@ const router = createRouter({
       name: "",
       component: NoSidebarLayout,
       children: [
-        {
-          path: "/calender",
-          name: "calender",
-          component: CalenderView,
-        },
+        
         {
           path: "/profile",
           name: "profile",
