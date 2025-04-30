@@ -1,33 +1,37 @@
 import { makeRequest } from "@/requests/requests";
+import { ref, computed } from "vue";
 import { defineStore, storeToRefs } from "pinia";
-import { ref } from "vue";
 import { useProfileStore } from "./profile";
 
-export const usePositionStore = defineStore('position' , () => {
+export const usePositionStore = defineStore("positions", () => {
+  const endpoint = "positions";
+  const positions = ref([]);
+  const positionCount = ref(0);
 
-    const endpoint = 'positions';
-    const positions = ref([]);
 
-    const profileStore = useProfileStore();
-    const { profile } = storeToRefs(profileStore);
-
-    const getPositions = async () => {
-        try {
-            const response = await makeRequest(endpoint , 'GET' , {} , {} , {} , 2 , profile.value.id);
-            if(response.data)
-            {
-                positions.value = response.data.positions;
-            }
-        } catch (error) {
-            console.error("Error fetching positions:", error);
-        }
-
+  const profileStore = useProfileStore();
+  const { profile } = storeToRefs(profileStore);
+  //   Get positions
+  const getPositions = async () => {
+    try {
+      await profileStore.getProfile()
+      const response = await makeRequest(endpoint, "GET", {}, {}, {}, 0, profile.value?.id, 'user');
+      if (response.data) {
+        positions.value = response.data?.positions;
+        positionCount.value = response.data?.count;
+      }
+    } catch (error) {
+      console.log("This is error", error);
     }
+  };
 
-    getPositions();
-    return {
-        positions,
-        getPositions
-    }
+  //   Group the positoin according the strategy and users
+  
+  getPositions();
 
-})
+  return {
+    getPositions,
+    positions,
+    positionCount,
+  };
+});
